@@ -17,7 +17,7 @@ func main() {
 		panic("require token on .env")
 	}
 
-	lang := flag.String("lang", "en", "Language to speak")
+	lang := flag.String("lang", "ja", "Language to speak")
 	flag.Parse()
 
 	ctx := context.Background()
