@@ -43,6 +43,12 @@
   revision = "70de03e410ee4c3c49a0c85572f719386c722f60"
 
 [[projects]]
+  name = "github.com/joho/godotenv"
+  packages = ["."]
+  revision = "a79fa1e548e2c689c241d10173efd51e5d689d5b"
+  version = "v1.2.0"
+
+[[projects]]
   name = "github.com/miekg/dns"
   packages = ["."]
   revision = "5364553f1ee9cddc7ac8b62dce148309c386695b"
@@ -86,6 +92,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "156be7993c2d44e1c45d1436e240b4039345fc72d852152cf9996201abf75774"
+  inputs-digest = "be2e0b9b1d07ebd07cbb1d46794ef3344b1b265dfa5048ca5973c8fe81e7ff21"
   solver-name = "gps-cdcl"
   solver-version = 1
