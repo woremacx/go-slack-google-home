@@ -52,11 +52,28 @@ func (s *SlackBot) Run(ctx context.Context) {
 }
 
 func (s *SlackBot) handleMessageEvent(ctx context.Context, ev *slack.MessageEvent) error {
-	mention := fmt.Sprintf("<@%s> ", s.connectedUser.ID)
-	if !strings.HasPrefix(ev.Msg.Text, mention) {
+	log.Printf("[INFO] message %s", ev.Msg.Text)
+
+	var mentioned bool
+	var body string
+	mentionFull := fmt.Sprintf("<@%s> ", s.connectedUser.ID)
+	if strings.HasPrefix(ev.Msg.Text, mentionFull) {
+		body = strings.TrimPrefix(ev.Msg.Text, mentionFull)
+		mentioned = true
+	}
+	if !mentioned {
+		mentionNotice := fmt.Sprintf("<@%s|home> ", s.connectedUser.ID)
+		idx := strings.Index(ev.Msg.Text, mentionNotice)
+		if idx > -1 {
+			start := idx + len(mentionNotice)
+			body = ev.Msg.Text[start:]
+			mentioned = true
+		}
+	}
+	if !mentioned {
 		return nil
 	}
-	body := strings.TrimPrefix(ev.Msg.Text, mention)
+	log.Printf("[INFO] speak: %s", body)
 
 	if err := s.speak(ctx, body); err != nil {
 		// Reload device, because address may have changed according to DHCP.
